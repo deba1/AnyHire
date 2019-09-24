@@ -1,2 +1,2 @@
 # AnyHire
-Management System for hiring and providing Services
+Web based Management System for hiring and providing Services.
