@@ -2,13 +2,6 @@
 
 namespace AnyHire.Models
 {
-    public class ExternalLoginConfirmationViewModel
-    {
-        [Required]
-        [Display(Name = "User name")]
-        public string UserName { get; set; }
-    }
-
     public class ManageUserViewModel
     {
         [Required]
@@ -43,14 +36,15 @@ namespace AnyHire.Models
         public bool RememberMe { get; set; }
     }
 
-    public class RegisterViewModel
+    public class CustomerRegisterViewModel
     {
         [Required]
+        [StringLength(20, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 4)]
         [Display(Name = "User name")]
-        public string UserName { get; set; }
+        public string Username { get; set; }
 
         [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [StringLength(50, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 4)]
         [DataType(DataType.Password)]
         [Display(Name = "Password")]
         public string Password { get; set; }
@@ -59,5 +53,90 @@ namespace AnyHire.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        [Required]
+        [Display(Name = "Full Name")]
+        [StringLength(70, MinimumLength = 6, ErrorMessage = "The {0} must be at least {2} characters long.")]
+        public string Name { get; set; }
+
+        [Required]
+        [DataType(DataType.EmailAddress)]
+        public string Email { get; set; }
+
+        [Required]
+        [DataType(DataType.PhoneNumber)]
+        public int Mobile { get; set; }
+
+        [Required]
+        public string Gender { get; set; }
+
+        [Required]
+        [DataType(DataType.Date)]
+        [Display(Name = "Date of Birth")]
+        public System.DateTime DateOfBirth { get; set; }
+
+        [Required]
+        [StringLength(300, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 4)]
+        public string Address { get; set; }
+
+        [Required]
+        [Display(Name = "National ID No.")]
+        public int NID { get; set; }
+    }
+
+    public class ServiceProviderRegisterViewModel
+    {
+        [Required]
+        [StringLength(20, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 4)]
+        [Display(Name = "User name")]
+        public string Username { get; set; }
+
+        [Required]
+        [StringLength(50, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 4)]
+        [DataType(DataType.Password)]
+        [Display(Name = "Password")]
+        public string Password { get; set; }
+
+        [DataType(DataType.Password)]
+        [Display(Name = "Confirm password")]
+        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        public string ConfirmPassword { get; set; }
+
+        [Required]
+        [Display(Name = "Full Name")]
+        [StringLength(70, MinimumLength = 6, ErrorMessage = "The {0} must be at least {2} characters long.")]
+        public string Name { get; set; }
+
+        [Required]
+        [DataType(DataType.EmailAddress)]
+        public string Email { get; set; }
+
+        [Required]
+        [DataType(DataType.PhoneNumber)]
+        public int Mobile { get; set; }
+
+        [Required]
+        public string Gender { get; set; }
+
+        [Required]
+        [DataType(DataType.Date)]
+        [Display(Name = "Date of Birth")]
+        public System.DateTime DateOfBirth { get; set; }
+
+        [Required]
+        [StringLength(300, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 4)]
+        public string Address { get; set; }
+
+        [Required]
+        [Display(Name = "National ID No.")]
+        public int NID { get; set; }
+
+        [Required]
+        [Display(Name = "Work Area")]
+        public string Coverage { get; set; }
+
+        [Required]
+        [Display(Name = "Skills")]
+        public string Skills { get; set; }
     }
 }
