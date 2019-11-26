@@ -55,3 +55,7 @@ input[type="checkbox"].input-validation-error {
     border-radius: 4px;
     margin-bottom: 5px;
 }
+
+.bootstrap-tagsinput {
+    min-width: 240px;
+}
