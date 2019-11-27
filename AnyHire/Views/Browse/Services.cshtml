@@ -1,0 +1,27 @@
+﻿@model IEnumerable<AnyHire.Models.Service>
+
+@{
+    ViewBag.Title = "Service";
+}
+
+<h2>All Services</h2>
+<hr />
+<div class="row">
+    <div class="col-md-12">
+      
+
+        @foreach (var item in Model)
+        {
+            <a href="/Browse/Service/@item.Id">
+                <div class="col-md-3 col-sm-3 col-xs-6" style="margin-bottom: 8px">
+                    <div class="thumbnail product-item ">
+                        <img class="img-responsive" title="Click to see all Packages" style="cursor: pointer; height: 200px;width:100%" src="/Content/Images/@item.ImagePath" />
+                        <div class="caption">
+                            <h5>@Html.DisplayFor(modelItem => item.Name)</h5>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        }
+    </div>
+</div>

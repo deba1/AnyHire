@@ -5,6 +5,17 @@
             @Html.ActionLink("Hello " + Session["username"].ToString() + "!", "Manage", "Account", routeValues: null, htmlAttributes: new { title = "Manage" })
         </li>
         <li>
+            @if ((int)Session["user-type"] == 1)
+            {
+                 @Html.ActionLink("Dashboard", "Index", "Admin")
+            }
+            @if((int)Session["user-type"] == 3)
+            {
+                @Html.ActionLink("Dashboard", "Index", "ServiceProvider")
+            }
+           
+        </li>
+        <li>
             @Html.ActionLink("Logout","LogOut","Account")
         </li>
     </ul>

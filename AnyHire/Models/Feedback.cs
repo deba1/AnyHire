@@ -20,7 +20,7 @@ namespace AnyHire.Models
         public int Stars { get; set; }
         public bool Disliked { get; set; }
     
-        public virtual Customer Customer { get; set; }
+        public virtual Account Account { get; set; }
         public virtual Package Package { get; set; }
     }
 }

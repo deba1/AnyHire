@@ -17,7 +17,6 @@ namespace AnyHire.Models
         public ServiceProvider()
         {
             this.Accounts = new HashSet<Account>();
-            this.Packages = new HashSet<Package>();
         }
     
         public int Id { get; set; }
@@ -30,6 +29,5 @@ namespace AnyHire.Models
         public bool Activated { get; set; }
     
         public virtual ICollection<Account> Accounts { get; set; }
-        public virtual ICollection<Package> Packages { get; set; }
     }
 }

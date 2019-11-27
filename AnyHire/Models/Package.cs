@@ -28,9 +28,9 @@ namespace AnyHire.Models
         public string ImagePath { get; set; }
         public decimal Price { get; set; }
     
+        public virtual Account Account { get; set; }
         public virtual ICollection<Appointment> Appointments { get; set; }
         public virtual ICollection<Feedback> Feedbacks { get; set; }
-        public virtual ServiceProvider ServiceProvider { get; set; }
         public virtual Service Service { get; set; }
     }
 }

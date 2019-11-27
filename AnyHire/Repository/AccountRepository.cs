@@ -20,29 +20,5 @@ namespace AnyHire.Repository
             return this.GetAll().Where(a=>a.Username == username && a.Password == password).FirstOrDefault();
         }
 
-        public bool IsAdmin(Account user)
-        {
-            return user.UserType == 1;
-        }
-
-        public bool IsCustomer(Account user)
-        {
-            return user.UserType == 2;
-        }
-
-        public bool IsServiceProvider(Account user)
-        {
-            return user.UserType == 3;
-        }
-
-        public Customer GetCustomer(Account user)
-        {
-            return user.Customer;
-        }
-
-        public ServiceProvider GetServiceProvider(Account user)
-        {
-            return user.ServiceProvider;
-        }
     }
 }

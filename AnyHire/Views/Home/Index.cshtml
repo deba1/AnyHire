@@ -1,31 +1,86 @@
-﻿@{
+﻿@model AnyHire.Models.HomeViewModel
+@{
     ViewBag.Title = "Home Page";
 }
 
 <div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="http://asp.net" class="btn btn-primary btn-large">Learn more &raquo;</a></p>
+    <div style="float:right">
+        <form method="get" action="" class="form-inline">
+            <input type="text" name="keyword" class="form-control" placeholder="Search..." id="searchBox" value="@Request["keyword"]" aria-describedby="button-addon" />
+            <input type="submit" value="Search" class="btn btn-primary" id="button-addon" />
+        </form>
+    </div>
+    <h1>AnyHire</h1>
+    <p class="lead">All the services you need in one place.</p>
 </div>
 
 <div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
+    <div class="col-md-10">
+        <h3>Featured Services</h3>
     </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+    <div class="col-md-2">
+        <a href="/Browse/Service" class="btn btn-primary" style="margin:12px 0 0 50px">Browse All</a>
     </div>
 </div>
+<div class="row">
+    <div class="col-md-12">
+        <hr/>
+        
+        @foreach (var item in Model.Services)
+        {
+            <a href="/Browse/Service/@item.Id">
+                <div class="col-md-3 col-sm-3 col-xs-6" style="margin-bottom: 8px">
+                    <div class="thumbnail product-item ">
+                        <img class="img-responsive" title="Click to see all Packages" style="cursor: pointer; height: 200px;width:100%" src="../Content/Images/@item.ImagePath" />
+                        <div class="caption">
+                            <h5>@Html.DisplayFor(modelItem => item.Name)</h5>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        }
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-10">
+        <h3>Featured Services</h3>
+    </div>
+    <div class="col-md-2">
+        <a href="/Browse/Package" class="btn btn-primary" style="margin:12px 0 0 50px">Browse All</a>
+    </div>
+</div>
+<hr />
+<div class="row">
+    <div class="col-md-12">
+       
+
+        @foreach (var item in Model.Packages)
+        {
+            <a href="/Browse/Package/@item.Id">
+                <div class="col-md-3 col-sm-3 col-xs-6" style="margin-bottom: 8px">
+                    <div class="thumbnail product-item ">
+                        <img class="img-responsive" title="Click to View Package Detail" style="cursor: pointer; height: 200px;width:100%" src="../Content/Images/@item.ImagePath" />
+                        <div class="caption">
+                            <h5>@Html.DisplayFor(modelItem => item.Title)</h5><h6 class="label label-primary"> @Html.DisplayFor(modelItem => item.Service.Name)</h6><h6>৳ @item.Price</h6>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        }
+    </div>
+</div>
+
+<script src="/Scripts/jquery.easy-autocomplete.min.js"></script>
+<script>
+    var opt = {
+        url: "/api/services",
+        getValue: "Name",
+        list: {
+            match: {
+                enabled: true
+            }
+        },
+        theme: "blue-light"
+    };
+    $("#searchBox").easyAutocomplete(opt);
+</script>

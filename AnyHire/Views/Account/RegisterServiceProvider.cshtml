@@ -129,23 +129,27 @@
 <div>
     Already have an account? @Html.ActionLink("Login", "Login")
 </div>
+<script src="/Scripts/typeahead.bundle.js"></script>
 <script src="/Scripts/bootstrap-tagsinput.js"></script>
 <script>
-    /*var skl = new Bloodhound({
-        datumTokenizer: Bloodhound.tokenizers.obj.whitespace('text'),
+    var skl = new Bloodhound({
+        datumTokenizer: Bloodhound.tokenizers.obj.whitespace('Name'),
         queryTokenizer: Bloodhound.tokenizers.whitespace,
         prefetch: '/api/services'
-    });
-    skl.initialize();*/
+    })
+    skl.initialize();
     $("#Coverage").attr("data-role", "tagsinput");
     var skills = $("#Skills");
-    skills.attr("data-role", "tagsinput");
-    /*skills.tagsinput({
-        typeahead: {
-            source: ['Mechanic','Painting']
-        },
-        freeInput: false
-    });*/
+    skills.tagsinput({});
+    skills.tagsinput({
+        itemValue: 'Id',
+        itemText: 'Name',
+        typeaheadjs: {
+            name: 'skl',
+            displayKey: 'Name',
+            source: skl.ttAdapter()
+        }
+    });
 </script>
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

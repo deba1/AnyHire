@@ -1,0 +1,71 @@
+﻿@model AnyHire.Models.Package
+
+@{
+    ViewBag.Title = "Package";
+}
+
+<h2>@Html.DisplayFor(model => model.Title)</h2>
+<span class="label label-primary">@Model.Service.Name</span>
+
+<div>
+    <p>@Html.Raw(Model.Description.Replace(Environment.NewLine, "<br/>"))</p>
+	<hr />
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        @if (@Html.DisplayFor(model => model.ImagePath).ToString() != "")
+        {
+            <br />
+            <img src="/Content/Images/@Html.DisplayFor(model => model.ImagePath)" alt="*" style="max-width: 100%" />
+        }
+    </div>
+    <div class="col-md-3">
+        <br/>
+        <strong>Service Provider:</strong> <a href="/Browse/Provider/@Model.Account.Id">@Model.Account.Name</a>
+        <br/>
+        <strong>Price:</strong> ৳ @Model.Price
+        <br/>
+        <strong>Rating:</strong>
+        <span style="color:#f7ed27;font-size:2.4rem">
+            ★ @if(@Model.Feedbacks.Count()<1)
+              {
+                <b>0.00</b>
+              }
+              else
+              {
+                <b>@Model.Feedbacks.Select(s => s.Stars).Average()</b>
+              }
+              
+        </span>
+        <br />
+        <br/>
+        <a href="#" class="btn btn-primary">Apply for Appointment</a>
+    </div>
+</div>
+<hr/>
+<div class="row">
+    <div class="col-md-9">
+        <h4><strong>Feedbacks</strong></h4>
+    </div>
+    <div class="col-md-3">
+        <h4><strong>Your Feedback</strong></h4>
+        <div class="stars" id="stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+        <a href="" class="btn btn-danger">👎 Dislike</a>
+        
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        var s1 = $("#stars span:first-child");
+        var s2 = $("#stars span:nth-child(2)");
+        var s3 = $("#stars span:nth-child(3)");
+        var s4 = $("#stars span:nth-child(4)");
+        var s5 = $("#stars span:nth-child(5)");
+        s1.hover(function () { $(this).css("color", "#f7ed27"); }, function () { $(this).css("color", "#ccc"); });
+        s2.hover(function () { s1.css("color", "#f7ed27"); $(this).css("color", "#f7ed27"); }, function () { s1.css("color", "#ccc"); $(this).css("color", "#ccc"); });
+        s3.hover(function () { s1.css("color", "#f7ed27"); s2.css("color", "#f7ed27"); $(this).css("color", "#f7ed27"); }, function () { s2.css("color", "#ccc"); s1.css("color", "#ccc"); $(this).css("color", "#ccc"); });
+        s4.hover(function () { s1.css("color", "#f7ed27"); s2.css("color", "#f7ed27"); s3.css("color", "#f7ed27"); $(this).css("color", "#f7ed27"); }, function () { s3.css("color", "#ccc"); s2.css("color", "#ccc"); s1.css("color", "#ccc"); $(this).css("color", "#ccc"); });
+        s5.hover(function () { $("#stars span").css("color", "#f7ed27"); }, function () { $("#stars span").css("color", "#ccc"); });
+    });
+</script>
