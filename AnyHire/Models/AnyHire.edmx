@@ -12,8 +12,8 @@
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Username" Type="nvarchar" MaxLength="20" Nullable="false" />
           <Property Name="Password" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="Name" Type="nvarchar" MaxLength="70" Nullable="false" />
-          <Property Name="Email" Type="nvarchar" MaxLength="90" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="70" Nullable="false" />
           <Property Name="Mobile" Type="int" Nullable="false" />
           <Property Name="Gender" Type="nvarchar" MaxLength="6" Nullable="false" />
           <Property Name="DateOfBirth" Type="date" Nullable="false" />
@@ -78,7 +78,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Id" Type="int" Nullable="false" />
           <Property Name="NID" Type="int" Nullable="false" />
           <Property Name="Coverage" Type="nvarchar(max)" Nullable="false" />
           <Property Name="JoinDate" Type="date" Nullable="false" />
@@ -386,8 +386,8 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Username" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
           <Property Name="Password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Name" Type="String" Nullable="false" MaxLength="70" FixedLength="false" Unicode="true" />
-          <Property Name="Email" Type="String" Nullable="false" MaxLength="90" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" Nullable="false" MaxLength="70" FixedLength="false" Unicode="true" />
           <Property Name="Mobile" Type="Int32" Nullable="false" />
           <Property Name="Gender" Type="String" Nullable="false" MaxLength="6" FixedLength="false" Unicode="true" />
           <Property Name="DateOfBirth" Type="DateTime" Nullable="false" Precision="0" />
@@ -471,7 +471,7 @@
           <Key>
             <PropertyRef Name="Id" />
           </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Id" Type="Int32" Nullable="false" />
           <Property Name="NID" Type="Int32" Nullable="false" />
           <Property Name="Coverage" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="JoinDate" Type="DateTime" Nullable="false" Precision="0" />
@@ -653,7 +653,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>

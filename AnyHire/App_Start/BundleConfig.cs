@@ -21,10 +21,12 @@ namespace AnyHire
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.min.js",
+                      "~/Scripts/typeahead.bundle.js",
                       "~/Scripts/respond.min.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.min.css"));
+                      "~/Content/bootstrap.min.css",
+                      "~/Content/bootstrap-tagsinput.css"));
         }
     }
 }
