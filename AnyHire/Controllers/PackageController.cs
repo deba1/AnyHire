@@ -17,7 +17,6 @@ namespace AnyHire.Controllers
     {
         IRepository<Package> prepo = new PackageRepository(new AnyHireDbContext());
         IRepository<Service> srepo = new ServiceRepository(new AnyHireDbContext());
-        private AnyHireDbContext db = new AnyHireDbContext();
 
         // GET: /Package/
         public ActionResult Index()
@@ -74,7 +73,7 @@ namespace AnyHire.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.ServiceId = new SelectList(db.Services, "Id", "Name", package.ServiceId);
+            ViewBag.ServiceId = new SelectList(srepo.GetAll(), "Id", "Name", package.ServiceId);
             return View(package);
         }
 
@@ -90,7 +89,7 @@ namespace AnyHire.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.ServiceId = new SelectList(db.Services, "Id", "Name", package.ServiceId);
+            ViewBag.ServiceId = new SelectList(srepo.GetAll(), "Id", "Name", package.ServiceId);
             return View(package);
         }
 
@@ -121,7 +120,7 @@ namespace AnyHire.Controllers
                 prepo.Submit();
                 return RedirectToAction("Index");
             }
-            ViewBag.ServiceId = new SelectList(db.Services, "Id", "Name", package.ServiceId);
+            ViewBag.ServiceId = new SelectList(srepo.GetAll(), "Id", "Name", package.ServiceId);
             return View(package);
         }
 
@@ -145,19 +144,39 @@ namespace AnyHire.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Package package = db.Packages.Find(id);
-            db.Packages.Remove(package);
-            db.SaveChanges();
+            Package package = prepo.GetById(id);
+            prepo.Delete(package);
+            prepo.Submit();
             return RedirectToAction("Index");
         }
-
-        protected override void Dispose(bool disposing)
+        [HttpPost]
+        public ActionResult Apply(int? id, AppointmentViewModel avm)
         {
-            if (disposing)
+            if (id == null)
             {
-                db.Dispose();
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            base.Dispose(disposing);
+            var arepo = new AppointmentRepository(new AnyHireDbContext());
+            
+            try
+            {
+                var package = prepo.GetById(id ?? 0);
+                var app = new Appointment();
+                app.Completed = false;
+                app.Location = avm.Location;
+                app.PackageId = package.Id;
+                app.CustomerId = avm.uid;
+                app.Time = Convert.ToDateTime(avm.Date + " " + avm.Time);
+                arepo.Insert(app);
+                arepo.Submit();
+            }
+            catch (Exception e)
+            {
+                TempData["Error"] = e.Message.ToString();
+                return Redirect("/Browse/Package/" + (id ?? 0));
+            }
+            TempData["Success"] = "Appointment Scheduled!";
+            return Redirect("/Browse/Package/" + (id ?? 0));
         }
     }
 }

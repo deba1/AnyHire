@@ -1,0 +1,53 @@
+﻿@model IEnumerable<AnyHire.Models.Transaction>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.TotalAmount)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ServiceProviderRevenue)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CompanyRevenue)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Account.Username)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Appointment.Location)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.TotalAmount)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ServiceProviderRevenue)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CompanyRevenue)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Account.Username)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Appointment.Location)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>

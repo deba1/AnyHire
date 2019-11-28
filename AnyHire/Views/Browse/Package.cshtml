@@ -3,6 +3,89 @@
 @{
     ViewBag.Title = "Package";
 }
+@if (@TempData["Error"] != null)
+{
+    <script>alert("@TempData["Error"]");</script>
+}
+@if (@TempData["Success"] != null)
+{
+    <script>alert("@TempData["Success"]");</script>
+}
+<div class="content" id="main">
+<div class="modal fade" id="apply" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">@Model.Title</h4>
+            </div>
+            <div class="modal-body">
+                <p>@Html.Raw(Model.Description.Replace(Environment.NewLine, "<br/>"))</p>
+                <strong>Service Price:</strong> ৳ @Model.Price
+                <br />
+                <strong>Charge:</strong> ৳ 50
+                <br />
+                <strong>Total:</strong> ৳ @(Model.Price+50)
+                <br />
+                <br/>
+                <form method="post" action="/Package/Apply/@Model.Id" id="applyForm">
+                    <div class="row">
+                        <label class="col-md-3 control-label" for="Location">
+                            Location:
+                        </label>
+                        <div class="col-md-9">
+                            <select name="Location" id="Location">
+                                <option> </option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label class="col-md-3 control-label" for="Date">
+                            Date:
+                        </label>
+                        <div class="col-md-9">
+                            <input type="date" name="Date" id="Date" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label class="col-md-3 control-label" for="Time">
+                            Time:
+                        </label>
+                        <div class="col-md-9">
+                            <input type="time" name="Time" id="Time" />
+                        </div>
+                        <input type="hidden" value="@Session["user-id"]" name="uid"/>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" onclick="$('#applyForm').submit()">Confirm</button>
+            </div>
+            <script>
+                $(document).ready(function () {
+                    $.ajax("/api/locations/@Model.Id").success(function (res) {
+                        $.each(res, function (key, val) {
+                            $("#Location").append('<option>' + val + '</option>');
+                        });
+                    });
+                    /*$("#applyForm").on("submit", function (event) {
+                        event.preventDefault();
+                        var data = {
+                            uid: Convert.ToInt32(Session["user-id"]),
+                            Location: $("#Location").val(),
+                            Date: $("#Date").val(),
+                            Time: $("#Time").val().replace(':','-')
+                        };
+                        alert(JSON.stringify(data));
+                        var req = $.post("/api/apply/Model.Id", JSON.stringify(data));
+                        req.success(function (res) { alert(res);window.location=window.location; });
+                        req.error(function (res) { alert(res.responseText); });
+                    });*/
+                });
+            </script>
+        </div>
+    </div>
+</div>
 
 <h2>@Html.DisplayFor(model => model.Title)</h2>
 <span class="label label-primary">@Model.Service.Name</span>
@@ -40,7 +123,9 @@
         </span>
         <br />
         <br/>
-        <a href="#" class="btn btn-primary">Apply for Appointment</a>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#apply">
+            Apply for Appointment
+        </button>
     </div>
 </div>
 <hr/>
@@ -69,3 +154,4 @@
         s5.hover(function () { $("#stars span").css("color", "#f7ed27"); }, function () { $("#stars span").css("color", "#ccc"); });
     });
 </script>
+</div>

@@ -1,0 +1,59 @@
+﻿@model AnyHire.Models.Transaction
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Transaction</h4>
+	<hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TotalAmount)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TotalAmount)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ServiceProviderRevenue)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ServiceProviderRevenue)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CompanyRevenue)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CompanyRevenue)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Account.Username)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Account.Username)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Appointment.Location)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Appointment.Location)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

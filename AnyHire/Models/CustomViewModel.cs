@@ -31,4 +31,12 @@ namespace AnyHire.Models
         public IEnumerable<Appointment> Appointments { get; set; }
         public IEnumerable<Transaction> Transactions { get; set; }
     }
+
+    public class AppointmentViewModel
+    {
+        public int uid { get; set; }
+        public string Location { get; set; }
+        public string Date { get; set; }
+        public string Time { get; set; }
+    }
 }
