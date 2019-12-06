@@ -14,10 +14,12 @@ namespace AnyHire.Models
 
     public class AdminViewModel
     {
-        public double IncomeDaily { get; set; }
-        public double IncomeDailyOrg { get; set; }
+        public decimal IncomeDaily { get; set; }
+        public decimal IncomeMonth { get; set; }
         public IEnumerable<Account> Customers { get; set; }
         public IEnumerable<Account> ServiceProvides { get; set; }
+
+        public IEnumerable<Package> Packages { get; set; }
     }
 
     public class ServiceProviderViewModel

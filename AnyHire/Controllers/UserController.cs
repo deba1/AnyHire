@@ -17,6 +17,8 @@ namespace AnyHire.Controllers
         // GET: /User/
         public ActionResult Index()
         {
+            if (Session["user-type"] == null || Session["user-type"].ToString() != "1")
+                return Redirect("/");
             var accounts = db.Accounts.Include(a => a.Customer).Include(a => a.ServiceProvider).Include(a => a.UserType1);
             return View(accounts.ToList());
         }
@@ -24,6 +26,8 @@ namespace AnyHire.Controllers
         // GET: /User/Details/5
         public ActionResult Details(int? id)
         {
+            if (Session["user-type"] == null || Session["user-type"].ToString() != "1")
+                return Redirect("/");
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -39,6 +43,8 @@ namespace AnyHire.Controllers
         // GET: /User/Create
         public ActionResult Create()
         {
+            if (Session["user-type"] == null || Session["user-type"].ToString() != "1")
+                return Redirect("/");
             ViewBag.CustomerId = new SelectList(db.Customers, "Id", "Id");
             ViewBag.ServiceProviderId = new SelectList(db.ServiceProviders, "Id", "Coverage");
             ViewBag.UserType = new SelectList(db.UserTypes, "Id", "Title");
@@ -52,6 +58,8 @@ namespace AnyHire.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include="Id,Username,Password,Name,Email,Mobile,Gender,DateOfBirth,Address,ProfilePicture,UserType,CustomerId,ServiceProviderId")] Account account)
         {
+            if (Session["user-type"] == null || Session["user-type"].ToString() != "1")
+                return Redirect("/");
             if (ModelState.IsValid)
             {
                 db.Accounts.Add(account);
@@ -68,6 +76,8 @@ namespace AnyHire.Controllers
         // GET: /User/Edit/5
         public ActionResult Edit(int? id)
         {
+            if (Session["user-type"] == null || Session["user-type"].ToString() != "1")
+                return Redirect("/");
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -90,6 +100,8 @@ namespace AnyHire.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include="Id,Username,Password,Name,Email,Mobile,Gender,DateOfBirth,Address,ProfilePicture,UserType,CustomerId,ServiceProviderId")] Account account)
         {
+            if (Session["user-type"] == null || Session["user-type"].ToString() != "1")
+                return Redirect("/");
             if (ModelState.IsValid)
             {
                 db.Entry(account).State = EntityState.Modified;
@@ -105,6 +117,8 @@ namespace AnyHire.Controllers
         // GET: /User/Delete/5
         public ActionResult Delete(int? id)
         {
+            if (Session["user-type"] == null || Session["user-type"].ToString() != "1")
+                return Redirect("/");
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -122,6 +136,8 @@ namespace AnyHire.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+            if (Session["user-type"] == null || Session["user-type"].ToString() != "1")
+                return Redirect("/");
             Account account = db.Accounts.Find(id);
             db.Accounts.Remove(account);
             db.SaveChanges();

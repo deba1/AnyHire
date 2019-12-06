@@ -22,12 +22,16 @@ namespace AnyHire.Controllers
         // GET: /Service/
         public ActionResult Index()
         {
+            if (Session["user-type"] == null || Session["user-type"].ToString() != "1")
+                return Redirect("/");
             return View(srepo.GetAll());
         }
 
         // GET: /Service/Details/5
         public ActionResult Details(int? id)
         {
+            if (Session["user-type"] == null || Session["user-type"].ToString() != "1")
+                return Redirect("/");
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -43,6 +47,8 @@ namespace AnyHire.Controllers
         // GET: /Service/Create
         public ActionResult Create()
         {
+            if (Session["user-type"] == null || Session["user-type"].ToString() != "1")
+                return Redirect("/");
             return View();
         }
 
@@ -53,6 +59,8 @@ namespace AnyHire.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include="Id,Name,ImagePath")] Service service)
         {
+            if (Session["user-type"] == null || Session["user-type"].ToString() != "1")
+                return Redirect("/");
             if (ModelState.IsValid)
             {
                 if (Request.Files.Count > 0)
@@ -79,6 +87,8 @@ namespace AnyHire.Controllers
         // GET: /Service/Edit/5
         public ActionResult Edit(int? id)
         {
+            if (Session["user-type"] == null || Session["user-type"].ToString() != "1")
+                return Redirect("/");
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -98,6 +108,8 @@ namespace AnyHire.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(Service service)
         {
+            if (Session["user-type"] == null || Session["user-type"].ToString() != "1")
+                return Redirect("/");
             if (ModelState.IsValid)
             {
                 if (Request.Files.Count > 0)
@@ -123,6 +135,8 @@ namespace AnyHire.Controllers
         // GET: /Service/Delete/5
         public ActionResult Delete(int? id)
         {
+            if (Session["user-type"] == null || Session["user-type"].ToString() != "1")
+                return Redirect("/");
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -140,6 +154,8 @@ namespace AnyHire.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+            if (Session["user-type"] == null || Session["user-type"].ToString() != "1")
+                return Redirect("/");
             Service service = db.Services.Find(id);
             db.Services.Remove(service);
             db.SaveChanges();

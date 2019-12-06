@@ -1,7 +1,34 @@
-﻿
+﻿@model AnyHire.Models.AdminViewModel
 @{
     ViewBag.Title = "Index";
     Layout = "~/Views/Shared/_Admin.cshtml";
 }
 <h3>Overview</h3>
 
+<div class="row">
+    <div class="col-sm-6">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Daily Income</h5>
+                <p class="card-text">৳ @Model.IncomeDaily</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Income Monthly</h5>
+                <p class="card-text">৳ @Model.IncomeMonth</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-header">
+        Top Customers
+    </div>
+    <div class="card-body">
+        
+    </div>
+</div>

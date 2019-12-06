@@ -21,6 +21,8 @@ namespace AnyHire.Controllers
         // GET: /Package/
         public ActionResult Index()
         {
+            if (Session["user-type"] == null || Session["user-type"].ToString() != "3")
+                return Redirect("/");
             return Redirect("/ServiceProvider#packages");
         }
 

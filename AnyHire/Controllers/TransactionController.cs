@@ -7,23 +7,37 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using AnyHire.Models;
+using AnyHire.Interface;
+using AnyHire.Repository;
 
 namespace AnyHire.Controllers
 {
     public class TransactionController : Controller
     {
         private AnyHireDbContext db = new AnyHireDbContext();
+        IRepository<Transaction> trepo = new TransactionRepository(new AnyHireDbContext());
 
         // GET: /Transaction/
         public ActionResult Index()
         {
+            if (Session["user-type"] == null || Session["user-type"].ToString() != "1")
+                return Redirect("/");
             var transactions = db.Transactions.Include(t => t.Account).Include(t => t.Appointment);
-            return View(transactions.ToList());
+            var trans = trepo.GetAll();
+            if (Request["fromDate"] != null && Request["toDate"] != null)
+            {
+                var fromDate = Convert.ToDateTime(Request["fromDate"]);
+                var toDate = Convert.ToDateTime(Request["toDate"]);
+                trans = trans.Where(t => t.Appointment.Time >= fromDate && t.Appointment.Time <= toDate);
+            }
+            return View(trans);
         }
 
         // GET: /Transaction/Details/5
         public ActionResult Details(int? id)
         {
+            if (Session["user-type"] == null || Session["user-type"].ToString() != "1")
+                return Redirect("/");
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -39,6 +53,8 @@ namespace AnyHire.Controllers
         // GET: /Transaction/Create
         public ActionResult Create()
         {
+            if (Session["user-type"] == null || Session["user-type"].ToString() != "1")
+                return Redirect("/");
             ViewBag.ServiceProviderId = new SelectList(db.Accounts, "Id", "Username");
             ViewBag.AppointmentId = new SelectList(db.Appointments, "Id", "Location");
             return View();

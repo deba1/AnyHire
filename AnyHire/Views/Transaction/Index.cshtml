@@ -5,49 +5,52 @@
     Layout = "~/Views/Shared/_Admin.cshtml";
 }
 
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.TotalAmount)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ServiceProviderRevenue)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CompanyRevenue)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Account.Username)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Appointment.Location)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.TotalAmount)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ServiceProviderRevenue)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CompanyRevenue)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Account.Username)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Appointment.Location)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
-        </td>
-    </tr>
+@if (Model.Count() < 1)
+{
+    <br />
+    <div class="alert alert-info">No Transactions</div>
 }
-
-</table>
+else
+{
+    <form class="form-inline" action="#">
+        <div class="form-group">
+            <input type="date" name="fromDate" />
+        </div>
+        <div class="form-group">
+            <input type="date" name="toDate" />
+        </div>
+        <div class="form-group">
+            <input type="submit" class="btn btn-primary" value="Check" />
+        </div>
+    </form>
+    <table id="transaction-table" class="display">
+        <thead>
+            <tr>
+                <th>Package</th>
+                <th>Customer</th>
+                <th>Provider</th>
+                <th>Date</th>
+                <th>Total Income</th>
+                <th>Revenue</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Appointment.Package.Title</td>
+                    <td>@item.Appointment.Account.Username</td>
+                    <td>@item.Account.Username</td>
+                    <td>@item.Appointment.Time</td>
+                    <td>@item.TotalAmount</td>
+                    <td>@item.CompanyRevenue</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div class="alert alert-info">
+        Total Income:
+        @Model.Sum(s => s.TotalAmount) <br/>
+        Organisation Income: @Model.Sum(s => s.CompanyRevenue)
+    </div>
+}

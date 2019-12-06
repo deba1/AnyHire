@@ -42,9 +42,11 @@
     <script>
         $(document).ready(function () {
             $("input").not("[type=submit]").not(".form-control").addClass("form-control");
+            
             $("select").not(".form-control").addClass("form-control");
             $("textarea").not(".form-control").addClass("form-control");
             $(".bootstrap-tagsinput input").removeClass("form-control");
+            $("input[type=radio]").removeClass("form-control");
         });
     </script>
     @Scripts.Render("~/bundles/bootstrap")
