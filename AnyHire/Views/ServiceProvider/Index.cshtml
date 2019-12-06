@@ -1,0 +1,176 @@
+﻿@model AnyHire.Models.ServiceProviderViewModel
+@{
+    ViewBag.Title = "Index";
+}
+<script src="/Scripts/datatables.js"></script>
+<h2>Dashboard</h2>
+@if (@TempData["Error"] != null)
+{
+    <script>alert('@TempData["Error"]');</script>
+}
+<div class="tabbable">
+    
+    <ul class="nav nav-tabs">
+        <li class="active"><a href="#appointments" data-toggle="tab">Appointments</a></li>
+        <li><a href="#packages" data-toggle="tab">Packages</a></li>
+        <li><a href="#transactions" data-toggle="tab">Transactions</a></li>
+    </ul>
+    <div class="tab-content">
+        <div class="tab-pane active" id="appointments">
+            @if (Model.Appointments.Count() < 1)
+            {
+                <br />
+                <div class="alert alert-info">No Appointments</div>
+            }
+            else
+            {
+                <table id="appoint-table" class="display">
+                        <thead>
+                            <tr>
+                                <th>Package</th>
+                                <th>Customer</th>
+                                <th>Time</th>
+                                <th>Location</th>
+                                <th>Completed?</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.Appointments)
+                            {
+                                <tr>
+                                    <td>@item.Package.Title</td>
+                                    <td>@item.Account.Username</td>
+                                    <td>@item.Time</td>
+                                    <td>@item.Location</td>
+                                    <td>@item.Completed</td>
+                                    <td>
+                                        @if (!@item.Completed)
+                                        {
+                                            <form method="post" action="/Appointment/Complete" class="form-inline">
+                                            <div class="form-group">
+                                                <input type="hidden" name="id" value="@item.Id"/>
+                                                <input type="number" name="NID" placeholder="Enter Customer NID"/>
+                                            </div>
+                                            <div class="form-group">
+                                                <input type="submit" value="Complete" class="btn btn-success"/>
+                                            </div>
+                                        </form>
+                                        }
+                                        
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+            }
+        </div>
+        <div class="tab-pane" id="packages">
+                @if (Model.Packages.Count() < 1)
+                {
+                    <br />
+                    <div class="alert alert-info">
+                        No Packages<br/><br/>
+                        @Html.ActionLink("Create One", "Create", "Package", new { }, new { @class = "btn btn-primary" })
+                    </div>
+                }
+                else
+                {
+                    @Html.ActionLink("New Package", "Create", "Package", new { }, new { @class = "btn btn-sm btn-primary" })
+                    <br/>
+                    <br/>
+                    <table id="packages-table" class="display">
+                        <thead>
+                            <tr>
+                                <th>Title</th>
+                                <th>Service</th>
+                                <th>Description</th>
+                                <th>Price</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.Packages)
+                            {
+                                <tr>
+                                    <td>@item.Title</td>
+                                    <td>@item.Service.Name</td>
+                                    <td>@item.Description</td>
+                                    <td>@item.Price</td>
+                                    <td>
+                                        <a href="/Package/Edit/@item.Id" class="btn btn-sm btn-warning">Edit</a>
+                                        <a href="/Package/Delete/@item.Id" class="btn btn-sm btn-danger">Delete</a>
+                                        <a href="/Package/Details/@item.Id" class="btn btn-sm btn-info">Details</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                }
+        </div>
+
+        <div class="tab-pane" id="transactions">
+            @if (Model.Transactions.Count()<1)
+            {
+                <br />
+                <div class="alert alert-info">No Transactions</div>
+            }
+            else
+            {
+                <form class="form-inline" action="#transactions">
+                    <div class="form-group">
+                        <input type="date" name="fromDate" />
+                    </div>
+                    <div class="form-group">
+                        <input type="date" name="toDate" />
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" class="btn btn-primary" value="Check"/>
+                    </div>
+                </form>
+                <table id="transaction-table" class="display">
+                        <thead>
+                            <tr>
+                                <th>Package</th>
+                                <th>Customer</th>
+                                <th>Date</th>
+                                <th>Income</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.Transactions)
+                            {
+                                <tr>
+                                    <td>@item.Appointment.Package.Title</td>
+                                    <td>@item.Account.Username</td>
+                                    <td>@item.Appointment.Time</td>
+                                    <td>@item.ServiceProviderRevenue</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                <div class="alert alert-info">
+                Net Income:
+                @Model.Transactions.Sum(s=>s.ServiceProviderRevenue)
+            </div>
+            }
+            
+        </div>
+    </div>
+</div>
+<script>
+    $(document).ready(function () {
+        $("#packages-table").DataTable();
+        $("#appoint-table").DataTable({
+            "order": [[5, "desc"]]
+        });
+        $("#transaction-table").DataTable({
+            "order": [[3, "asc"]]
+        });
+        if (window.location.hash != "") {
+            $(".active").not(".paginate_button").removeClass("active");
+            $("[href=" + window.location.hash + "]").parent().addClass("active");
+            $(window.location.hash).addClass("active");
+        }
+    });
+</script>

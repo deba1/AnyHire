@@ -1,0 +1,56 @@
+﻿@model IEnumerable<AnyHire.Models.Transaction>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Admin.cshtml";
+}
+
+@if (Model.Count() < 1)
+{
+    <br />
+    <div class="alert alert-info">No Transactions</div>
+}
+else
+{
+    <form class="form-inline" action="#">
+        <div class="form-group">
+            <input type="date" name="fromDate" />
+        </div>
+        <div class="form-group">
+            <input type="date" name="toDate" />
+        </div>
+        <div class="form-group">
+            <input type="submit" class="btn btn-primary" value="Check" />
+        </div>
+    </form>
+    <table id="transaction-table" class="display">
+        <thead>
+            <tr>
+                <th>Package</th>
+                <th>Customer</th>
+                <th>Provider</th>
+                <th>Date</th>
+                <th>Total Income</th>
+                <th>Revenue</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Appointment.Package.Title</td>
+                    <td>@item.Appointment.Account.Username</td>
+                    <td>@item.Account.Username</td>
+                    <td>@item.Appointment.Time</td>
+                    <td>@item.TotalAmount</td>
+                    <td>@item.CompanyRevenue</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div class="alert alert-info">
+        Total Income:
+        @Model.Sum(s => s.TotalAmount) <br/>
+        Organisation Income: @Model.Sum(s => s.CompanyRevenue)
+    </div>
+}

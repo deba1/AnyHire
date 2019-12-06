@@ -93,6 +93,7 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="ImagePath" Type="varchar" MaxLength="100" />
         </EntityType>
         <EntityType Name="Transactions">
           <Key>
@@ -100,6 +101,7 @@
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="AppointmentId" Type="int" Nullable="false" />
+          <Property Name="ServiceProviderId" Type="int" Nullable="false" />
           <Property Name="TotalAmount" Type="numeric" Precision="18" Scale="2" Nullable="false" />
           <Property Name="ServiceProviderRevenue" Type="numeric" Precision="18" Scale="2" Nullable="false" />
           <Property Name="CompanyRevenue" Type="numeric" Precision="18" Scale="2" Nullable="false" />
@@ -147,11 +149,11 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Appointments_Customers">
-          <End Role="Customers" Type="Self.Customers" Multiplicity="1" />
+        <Association Name="FK_Appointments_Accounts">
+          <End Role="Accounts" Type="Self.Accounts" Multiplicity="1" />
           <End Role="Appointments" Type="Self.Appointments" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Customers">
+            <Principal Role="Accounts">
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Appointments">
@@ -171,11 +173,11 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Feedback_Customers">
-          <End Role="Customers" Type="Self.Customers" Multiplicity="1" />
+        <Association Name="FK_Feedback_Accounts">
+          <End Role="Accounts" Type="Self.Accounts" Multiplicity="1" />
           <End Role="Feedback" Type="Self.Feedback" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Customers">
+            <Principal Role="Accounts">
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Feedback">
@@ -219,11 +221,11 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Packages_ServiceProviders">
-          <End Role="ServiceProviders" Type="Self.ServiceProviders" Multiplicity="1" />
+        <Association Name="FK_Packages_Accounts">
+          <End Role="Accounts" Type="Self.Accounts" Multiplicity="1" />
           <End Role="Packages" Type="Self.Packages" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="ServiceProviders">
+            <Principal Role="Accounts">
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Packages">
@@ -240,6 +242,18 @@
             </Principal>
             <Dependent Role="Packages">
               <PropertyRef Name="ServiceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transactions_Accounts">
+          <End Role="Accounts" Type="Self.Accounts" Multiplicity="1" />
+          <End Role="Transactions" Type="Self.Transactions" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Accounts">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Transactions">
+              <PropertyRef Name="ServiceProviderId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -278,16 +292,16 @@
             <End Role="UserTypes" EntitySet="UserTypes" />
             <End Role="Accounts" EntitySet="Accounts" />
           </AssociationSet>
-          <AssociationSet Name="FK_Appointments_Customers" Association="Self.FK_Appointments_Customers">
-            <End Role="Customers" EntitySet="Customers" />
+          <AssociationSet Name="FK_Appointments_Accounts" Association="Self.FK_Appointments_Accounts">
+            <End Role="Accounts" EntitySet="Accounts" />
             <End Role="Appointments" EntitySet="Appointments" />
           </AssociationSet>
           <AssociationSet Name="FK_Appointments_Packages" Association="Self.FK_Appointments_Packages">
             <End Role="Packages" EntitySet="Packages" />
             <End Role="Appointments" EntitySet="Appointments" />
           </AssociationSet>
-          <AssociationSet Name="FK_Feedback_Customers" Association="Self.FK_Feedback_Customers">
-            <End Role="Customers" EntitySet="Customers" />
+          <AssociationSet Name="FK_Feedback_Accounts" Association="Self.FK_Feedback_Accounts">
+            <End Role="Accounts" EntitySet="Accounts" />
             <End Role="Feedback" EntitySet="Feedback" />
           </AssociationSet>
           <AssociationSet Name="FK_Feedback_Packages" Association="Self.FK_Feedback_Packages">
@@ -302,13 +316,17 @@
             <End Role="Accounts" EntitySet="Accounts" />
             <End Role="Notices" EntitySet="Notices" />
           </AssociationSet>
-          <AssociationSet Name="FK_Packages_ServiceProviders" Association="Self.FK_Packages_ServiceProviders">
-            <End Role="ServiceProviders" EntitySet="ServiceProviders" />
+          <AssociationSet Name="FK_Packages_Accounts" Association="Self.FK_Packages_Accounts">
+            <End Role="Accounts" EntitySet="Accounts" />
             <End Role="Packages" EntitySet="Packages" />
           </AssociationSet>
           <AssociationSet Name="FK_Packages_Services" Association="Self.FK_Packages_Services">
             <End Role="Services" EntitySet="Services" />
             <End Role="Packages" EntitySet="Packages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transactions_Accounts" Association="Self.FK_Transactions_Accounts">
+            <End Role="Accounts" EntitySet="Accounts" />
+            <End Role="Transactions" EntitySet="Transactions" />
           </AssociationSet>
           <AssociationSet Name="FK_Transactions_Appointments" Association="Self.FK_Transactions_Appointments">
             <End Role="Appointments" EntitySet="Appointments" />
@@ -342,6 +360,14 @@
             <End Role="UserType" EntitySet="UserTypes" />
             <End Role="Account" EntitySet="Accounts" />
           </AssociationSet>
+          <AssociationSet Name="FK_Appointments_Accounts" Association="AnyHireDbModel.FK_Appointments_Accounts">
+            <End Role="Account" EntitySet="Accounts" />
+            <End Role="Appointment" EntitySet="Appointments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Feedback_Accounts" Association="AnyHireDbModel.FK_Feedback_Accounts">
+            <End Role="Account" EntitySet="Accounts" />
+            <End Role="Feedback" EntitySet="Feedbacks" />
+          </AssociationSet>
           <AssociationSet Name="FK_Notices_Accounts" Association="AnyHireDbModel.FK_Notices_Accounts">
             <End Role="Account" EntitySet="Accounts" />
             <End Role="Notice" EntitySet="Notices" />
@@ -350,9 +376,13 @@
             <End Role="Account" EntitySet="Accounts" />
             <End Role="Notice" EntitySet="Notices" />
           </AssociationSet>
-          <AssociationSet Name="FK_Appointments_Customers" Association="AnyHireDbModel.FK_Appointments_Customers">
-            <End Role="Customer" EntitySet="Customers" />
-            <End Role="Appointment" EntitySet="Appointments" />
+          <AssociationSet Name="FK_Packages_Accounts" Association="AnyHireDbModel.FK_Packages_Accounts">
+            <End Role="Account" EntitySet="Accounts" />
+            <End Role="Package" EntitySet="Packages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transactions_Accounts" Association="AnyHireDbModel.FK_Transactions_Accounts">
+            <End Role="Account" EntitySet="Accounts" />
+            <End Role="Transaction" EntitySet="Transactions" />
           </AssociationSet>
           <AssociationSet Name="FK_Appointments_Packages" Association="AnyHireDbModel.FK_Appointments_Packages">
             <End Role="Package" EntitySet="Packages" />
@@ -362,17 +392,9 @@
             <End Role="Appointment" EntitySet="Appointments" />
             <End Role="Transaction" EntitySet="Transactions" />
           </AssociationSet>
-          <AssociationSet Name="FK_Feedback_Customers" Association="AnyHireDbModel.FK_Feedback_Customers">
-            <End Role="Customer" EntitySet="Customers" />
-            <End Role="Feedback" EntitySet="Feedbacks" />
-          </AssociationSet>
           <AssociationSet Name="FK_Feedback_Packages" Association="AnyHireDbModel.FK_Feedback_Packages">
             <End Role="Package" EntitySet="Packages" />
             <End Role="Feedback" EntitySet="Feedbacks" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Packages_ServiceProviders" Association="AnyHireDbModel.FK_Packages_ServiceProviders">
-            <End Role="ServiceProvider" EntitySet="ServiceProviders" />
-            <End Role="Package" EntitySet="Packages" />
           </AssociationSet>
           <AssociationSet Name="FK_Packages_Services" Association="AnyHireDbModel.FK_Packages_Services">
             <End Role="Service" EntitySet="Services" />
@@ -399,8 +421,12 @@
           <NavigationProperty Name="Customer" Relationship="AnyHireDbModel.FK_Accounts_Customers" FromRole="Account" ToRole="Customer" />
           <NavigationProperty Name="ServiceProvider" Relationship="AnyHireDbModel.FK_Accounts_SurviceProviders" FromRole="Account" ToRole="ServiceProvider" />
           <NavigationProperty Name="UserType1" Relationship="AnyHireDbModel.FK_Accounts_UserTypes" FromRole="Account" ToRole="UserType" />
+          <NavigationProperty Name="Appointments" Relationship="AnyHireDbModel.FK_Appointments_Accounts" FromRole="Account" ToRole="Appointment" />
+          <NavigationProperty Name="Feedbacks" Relationship="AnyHireDbModel.FK_Feedback_Accounts" FromRole="Account" ToRole="Feedback" />
           <NavigationProperty Name="Notices" Relationship="AnyHireDbModel.FK_Notices_Accounts" FromRole="Account" ToRole="Notice" />
           <NavigationProperty Name="Notices1" Relationship="AnyHireDbModel.FK_Notices_AccountsUsers" FromRole="Account" ToRole="Notice" />
+          <NavigationProperty Name="Packages" Relationship="AnyHireDbModel.FK_Packages_Accounts" FromRole="Account" ToRole="Package" />
+          <NavigationProperty Name="Transactions" Relationship="AnyHireDbModel.FK_Transactions_Accounts" FromRole="Account" ToRole="Transaction" />
         </EntityType>
         <EntityType Name="Appointment">
           <Key>
@@ -412,7 +438,7 @@
           <Property Name="Location" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="true" />
           <Property Name="Time" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="Completed" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Customer" Relationship="AnyHireDbModel.FK_Appointments_Customers" FromRole="Appointment" ToRole="Customer" />
+          <NavigationProperty Name="Account" Relationship="AnyHireDbModel.FK_Appointments_Accounts" FromRole="Appointment" ToRole="Account" />
           <NavigationProperty Name="Package" Relationship="AnyHireDbModel.FK_Appointments_Packages" FromRole="Appointment" ToRole="Package" />
           <NavigationProperty Name="Transactions" Relationship="AnyHireDbModel.FK_Transactions_Appointments" FromRole="Appointment" ToRole="Transaction" />
         </EntityType>
@@ -423,8 +449,6 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="NID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Accounts" Relationship="AnyHireDbModel.FK_Accounts_Customers" FromRole="Customer" ToRole="Account" />
-          <NavigationProperty Name="Appointments" Relationship="AnyHireDbModel.FK_Appointments_Customers" FromRole="Customer" ToRole="Appointment" />
-          <NavigationProperty Name="Feedbacks" Relationship="AnyHireDbModel.FK_Feedback_Customers" FromRole="Customer" ToRole="Feedback" />
         </EntityType>
         <EntityType Name="Feedback">
           <Key>
@@ -435,7 +459,7 @@
           <Property Name="PackageId" Type="Int32" Nullable="false" />
           <Property Name="Stars" Type="Int32" Nullable="false" />
           <Property Name="Disliked" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Customer" Relationship="AnyHireDbModel.FK_Feedback_Customers" FromRole="Feedback" ToRole="Customer" />
+          <NavigationProperty Name="Account" Relationship="AnyHireDbModel.FK_Feedback_Accounts" FromRole="Feedback" ToRole="Account" />
           <NavigationProperty Name="Package" Relationship="AnyHireDbModel.FK_Feedback_Packages" FromRole="Feedback" ToRole="Package" />
         </EntityType>
         <EntityType Name="Notice">
@@ -462,9 +486,9 @@
           <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="ImagePath" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="Price" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+          <NavigationProperty Name="Account" Relationship="AnyHireDbModel.FK_Packages_Accounts" FromRole="Package" ToRole="Account" />
           <NavigationProperty Name="Appointments" Relationship="AnyHireDbModel.FK_Appointments_Packages" FromRole="Package" ToRole="Appointment" />
           <NavigationProperty Name="Feedbacks" Relationship="AnyHireDbModel.FK_Feedback_Packages" FromRole="Package" ToRole="Feedback" />
-          <NavigationProperty Name="ServiceProvider" Relationship="AnyHireDbModel.FK_Packages_ServiceProviders" FromRole="Package" ToRole="ServiceProvider" />
           <NavigationProperty Name="Service" Relationship="AnyHireDbModel.FK_Packages_Services" FromRole="Package" ToRole="Service" />
         </EntityType>
         <EntityType Name="ServiceProvider">
@@ -480,7 +504,6 @@
           <Property Name="Commission" Type="Decimal" Nullable="false" Precision="18" Scale="0" />
           <Property Name="Activated" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Accounts" Relationship="AnyHireDbModel.FK_Accounts_SurviceProviders" FromRole="ServiceProvider" ToRole="Account" />
-          <NavigationProperty Name="Packages" Relationship="AnyHireDbModel.FK_Packages_ServiceProviders" FromRole="ServiceProvider" ToRole="Package" />
         </EntityType>
         <EntityType Name="Service">
           <Key>
@@ -488,6 +511,7 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="ImagePath" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Packages" Relationship="AnyHireDbModel.FK_Packages_Services" FromRole="Service" ToRole="Package" />
         </EntityType>
         <EntityType Name="Transaction">
@@ -496,9 +520,11 @@
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="AppointmentId" Type="Int32" Nullable="false" />
+          <Property Name="ServiceProviderId" Type="Int32" Nullable="false" />
           <Property Name="TotalAmount" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
           <Property Name="ServiceProviderRevenue" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
           <Property Name="CompanyRevenue" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <NavigationProperty Name="Account" Relationship="AnyHireDbModel.FK_Transactions_Accounts" FromRole="Transaction" ToRole="Account" />
           <NavigationProperty Name="Appointment" Relationship="AnyHireDbModel.FK_Transactions_Appointments" FromRole="Transaction" ToRole="Appointment" />
         </EntityType>
         <EntityType Name="UserType">
@@ -545,6 +571,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Appointments_Accounts">
+          <End Type="AnyHireDbModel.Account" Role="Account" Multiplicity="1" />
+          <End Type="AnyHireDbModel.Appointment" Role="Appointment" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Appointment">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Feedback_Accounts">
+          <End Type="AnyHireDbModel.Account" Role="Account" Multiplicity="1" />
+          <End Type="AnyHireDbModel.Feedback" Role="Feedback" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Feedback">
+              <PropertyRef Name="CustomerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Notices_Accounts">
           <End Type="AnyHireDbModel.Account" Role="Account" Multiplicity="1" />
           <End Type="AnyHireDbModel.Notice" Role="Notice" Multiplicity="*" />
@@ -569,15 +619,27 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Appointments_Customers">
-          <End Type="AnyHireDbModel.Customer" Role="Customer" Multiplicity="1" />
-          <End Type="AnyHireDbModel.Appointment" Role="Appointment" Multiplicity="*" />
+        <Association Name="FK_Packages_Accounts">
+          <End Type="AnyHireDbModel.Account" Role="Account" Multiplicity="1" />
+          <End Type="AnyHireDbModel.Package" Role="Package" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Customer">
+            <Principal Role="Account">
               <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="Appointment">
-              <PropertyRef Name="CustomerId" />
+            <Dependent Role="Package">
+              <PropertyRef Name="ServiceProviderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transactions_Accounts">
+          <End Type="AnyHireDbModel.Account" Role="Account" Multiplicity="1" />
+          <End Type="AnyHireDbModel.Transaction" Role="Transaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Account">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Transaction">
+              <PropertyRef Name="ServiceProviderId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -605,18 +667,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Feedback_Customers">
-          <End Type="AnyHireDbModel.Customer" Role="Customer" Multiplicity="1" />
-          <End Type="AnyHireDbModel.Feedback" Role="Feedback" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Customer">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Feedback">
-              <PropertyRef Name="CustomerId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Feedback_Packages">
           <End Type="AnyHireDbModel.Package" Role="Package" Multiplicity="1" />
           <End Type="AnyHireDbModel.Feedback" Role="Feedback" Multiplicity="*" />
@@ -626,18 +676,6 @@
             </Principal>
             <Dependent Role="Feedback">
               <PropertyRef Name="PackageId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Packages_ServiceProviders">
-          <End Type="AnyHireDbModel.ServiceProvider" Role="ServiceProvider" Multiplicity="1" />
-          <End Type="AnyHireDbModel.Package" Role="Package" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ServiceProvider">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Package">
-              <PropertyRef Name="ServiceProviderId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -653,7 +691,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -751,6 +789,7 @@
           <EntitySetMapping Name="Services">
             <EntityTypeMapping TypeName="AnyHireDbModel.Service">
               <MappingFragment StoreEntitySet="Services">
+                <ScalarProperty Name="ImagePath" ColumnName="ImagePath" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
@@ -762,6 +801,7 @@
                 <ScalarProperty Name="CompanyRevenue" ColumnName="CompanyRevenue" />
                 <ScalarProperty Name="ServiceProviderRevenue" ColumnName="ServiceProviderRevenue" />
                 <ScalarProperty Name="TotalAmount" ColumnName="TotalAmount" />
+                <ScalarProperty Name="ServiceProviderId" ColumnName="ServiceProviderId" />
                 <ScalarProperty Name="AppointmentId" ColumnName="AppointmentId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>

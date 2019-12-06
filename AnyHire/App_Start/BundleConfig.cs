@@ -24,7 +24,9 @@ namespace AnyHire
                       "~/Scripts/respond.min.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.min.css"));
+                      "~/Content/bootstrap.min.css",
+                      "~/Content/datatables.css",
+                      "~/Content/bootstrap-tagsinput.css"));
         }
     }
 }

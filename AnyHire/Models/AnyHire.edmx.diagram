@@ -5,27 +5,28 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="c41cc6f4a9794cbd8d1a544ceab264ab" Name="Diagram1" ZoomLevel="81">
-        <EntityTypeShape EntityType="AnyHireDbModel.Account" Width="1.5" PointX="6" PointY="4.625" />
-        <EntityTypeShape EntityType="AnyHireDbModel.Appointment" Width="1.5" PointX="3" PointY="1.5" />
-        <EntityTypeShape EntityType="AnyHireDbModel.Customer" Width="1.5" PointX="0.75" PointY="5.875" />
-        <EntityTypeShape EntityType="AnyHireDbModel.Feedback" Width="1.5" PointX="3" PointY="5.75" />
-        <EntityTypeShape EntityType="AnyHireDbModel.Notice" Width="1.5" PointX="8.25" PointY="5.625" />
-        <EntityTypeShape EntityType="AnyHireDbModel.Package" Width="1.5" PointX="0.75" PointY="9.875" />
-        <EntityTypeShape EntityType="AnyHireDbModel.ServiceProvider" Width="1.5" PointX="1.5" PointY="16.125" />
-        <EntityTypeShape EntityType="AnyHireDbModel.Service" Width="1.5" PointX="1.5" PointY="13.75" />
-        <EntityTypeShape EntityType="AnyHireDbModel.Transaction" Width="1.5" PointX="5.25" PointY="0.875" />
-        <EntityTypeShape EntityType="AnyHireDbModel.UserType" Width="1.5" PointX="3.75" PointY="9.125" />
+        <EntityTypeShape EntityType="AnyHireDbModel.Account" Width="1.5" PointX="3" PointY="5.375" />
+        <EntityTypeShape EntityType="AnyHireDbModel.Appointment" Width="1.5" PointX="7.5" PointY="6.625" />
+        <EntityTypeShape EntityType="AnyHireDbModel.Customer" Width="1.5" PointX="0.75" PointY="10" />
+        <EntityTypeShape EntityType="AnyHireDbModel.Feedback" Width="1.5" PointX="10.5" PointY="6.875" />
+        <EntityTypeShape EntityType="AnyHireDbModel.Notice" Width="1.5" PointX="5.25" PointY="17.25" />
+        <EntityTypeShape EntityType="AnyHireDbModel.Package" Width="1.5" PointX="5.25" PointY="6.5" />
+        <EntityTypeShape EntityType="AnyHireDbModel.ServiceProvider" Width="1.5" PointX="0.75" PointY="3.5" />
+        <EntityTypeShape EntityType="AnyHireDbModel.Service" Width="1.5" PointX="3" PointY="2.125" />
+        <EntityTypeShape EntityType="AnyHireDbModel.Transaction" Width="1.5" PointX="12.75" PointY="6.75" />
+        <EntityTypeShape EntityType="AnyHireDbModel.UserType" Width="1.5" PointX="0.75" PointY="7.25" />
         <AssociationConnector Association="AnyHireDbModel.FK_Accounts_Customers" />
         <AssociationConnector Association="AnyHireDbModel.FK_Accounts_SurviceProviders" />
         <AssociationConnector Association="AnyHireDbModel.FK_Accounts_UserTypes" />
+        <AssociationConnector Association="AnyHireDbModel.FK_Appointments_Accounts" />
+        <AssociationConnector Association="AnyHireDbModel.FK_Feedback_Accounts" />
         <AssociationConnector Association="AnyHireDbModel.FK_Notices_Accounts" />
         <AssociationConnector Association="AnyHireDbModel.FK_Notices_AccountsUsers" />
-        <AssociationConnector Association="AnyHireDbModel.FK_Appointments_Customers" />
+        <AssociationConnector Association="AnyHireDbModel.FK_Packages_Accounts" />
+        <AssociationConnector Association="AnyHireDbModel.FK_Transactions_Accounts" />
         <AssociationConnector Association="AnyHireDbModel.FK_Appointments_Packages" />
         <AssociationConnector Association="AnyHireDbModel.FK_Transactions_Appointments" />
-        <AssociationConnector Association="AnyHireDbModel.FK_Feedback_Customers" />
         <AssociationConnector Association="AnyHireDbModel.FK_Feedback_Packages" />
-        <AssociationConnector Association="AnyHireDbModel.FK_Packages_ServiceProviders" />
         <AssociationConnector Association="AnyHireDbModel.FK_Packages_Services" />
       </Diagram>
     </edmx:Diagrams>

@@ -1,0 +1,27 @@
+﻿
+@{
+    ViewBag.Title = "Admin Panel";
+    Layout = "_Layout.cshtml";
+}
+<script src="/Scripts/datatables.js"></script>
+<h2>Admin Panel</h2>
+
+<ul class="nav nav-tabs" id="navigation">
+    <li class="active"><a href="/Admin">Overview</a></li>
+    <li><a href="/Service">Services</a></li>
+    <li><a href="/Transaction">Transactions</a></li>
+    <li><a href="/User">Users</a></li>
+</ul>
+<br/>
+<div class="container">
+    @RenderBody()
+</div>
+@Scripts.Render("~/bundles/bootstrap")
+@RenderSection("scripts", required: false)
+<script>
+    $(document).ready(function () {
+        $(".nav li").removeClass("active");
+        $("a[href='/@this.ViewContext.RouteData.Values["controller"].ToString()']").parent().addClass("active");
+        $("table").DataTable();
+    });
+</script>

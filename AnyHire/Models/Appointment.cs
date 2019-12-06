@@ -26,7 +26,7 @@ namespace AnyHire.Models
         public System.DateTime Time { get; set; }
         public bool Completed { get; set; }
     
-        public virtual Customer Customer { get; set; }
+        public virtual Account Account { get; set; }
         public virtual Package Package { get; set; }
         public virtual ICollection<Transaction> Transactions { get; set; }
     }

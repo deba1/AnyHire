@@ -17,15 +17,11 @@ namespace AnyHire.Models
         public Customer()
         {
             this.Accounts = new HashSet<Account>();
-            this.Appointments = new HashSet<Appointment>();
-            this.Feedbacks = new HashSet<Feedback>();
         }
     
         public int Id { get; set; }
         public int NID { get; set; }
     
         public virtual ICollection<Account> Accounts { get; set; }
-        public virtual ICollection<Appointment> Appointments { get; set; }
-        public virtual ICollection<Feedback> Feedbacks { get; set; }
     }
 }

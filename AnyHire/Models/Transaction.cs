@@ -16,10 +16,12 @@ namespace AnyHire.Models
     {
         public int Id { get; set; }
         public int AppointmentId { get; set; }
+        public int ServiceProviderId { get; set; }
         public decimal TotalAmount { get; set; }
         public decimal ServiceProviderRevenue { get; set; }
         public decimal CompanyRevenue { get; set; }
     
+        public virtual Account Account { get; set; }
         public virtual Appointment Appointment { get; set; }
     }
 }

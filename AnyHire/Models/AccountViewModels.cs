@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using AnyHire.Repository;
+using System.ComponentModel.DataAnnotations;
+using System.Collections.Generic;
 
 namespace AnyHire.Models
 {
@@ -139,4 +141,6 @@ namespace AnyHire.Models
         [Display(Name = "Skills")]
         public string Skills { get; set; }
     }
+
+    
 }
