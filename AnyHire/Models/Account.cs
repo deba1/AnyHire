@@ -18,8 +18,8 @@ namespace AnyHire.Models
         {
             this.Appointments = new HashSet<Appointment>();
             this.Feedbacks = new HashSet<Feedback>();
-            this.Notices = new HashSet<Notice>();
-            this.Notices1 = new HashSet<Notice>();
+            this.NoticesFrom = new HashSet<Notice>();
+            this.NoticesTo = new HashSet<Notice>();
             this.Packages = new HashSet<Package>();
             this.Transactions = new HashSet<Transaction>();
         }
@@ -43,8 +43,8 @@ namespace AnyHire.Models
         public virtual UserType UserType1 { get; set; }
         public virtual ICollection<Appointment> Appointments { get; set; }
         public virtual ICollection<Feedback> Feedbacks { get; set; }
-        public virtual ICollection<Notice> Notices { get; set; }
-        public virtual ICollection<Notice> Notices1 { get; set; }
+        public virtual ICollection<Notice> NoticesFrom { get; set; }
+        public virtual ICollection<Notice> NoticesTo { get; set; }
         public virtual ICollection<Package> Packages { get; set; }
         public virtual ICollection<Transaction> Transactions { get; set; }
     }
