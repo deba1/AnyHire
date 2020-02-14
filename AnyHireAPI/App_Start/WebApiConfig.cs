@@ -19,6 +19,12 @@ namespace AnyHireAPI
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+
+            config.Formatters.Remove(config.Formatters.XmlFormatter);
+            config.Formatters.JsonFormatter.SerializerSettings.ContractResolver = new Newtonsoft.Json.Serialization.CamelCasePropertyNamesContractResolver();
+            config.Formatters.JsonFormatter.SerializerSettings.ReferenceLoopHandling = new Newtonsoft.Json.ReferenceLoopHandling();
+            //EnableCorsAttribute cors = new EnableCorsAttribute("*", "*", "*");
+            //config.EnableCors(cors);
         }
     }
 }

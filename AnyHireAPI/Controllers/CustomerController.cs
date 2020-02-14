@@ -1,4 +1,5 @@
-﻿using AnyHireAPI.Models;
+﻿using AnyHireAPI.Attributes;
+using AnyHireAPI.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -80,6 +81,7 @@ namespace AnyHireAPI.Controllers
         }
 
         [Route("{id}")]
+        [CustomerAuthenticationAttribute]
         public IHttpActionResult Put([FromUri]int id, [FromBody]Consumer model)
         {
             BaseUrl = Request.RequestUri.Scheme + "://" + Request.RequestUri.Host + ":" + Request.RequestUri.Port;

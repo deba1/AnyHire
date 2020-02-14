@@ -1,7 +1,7 @@
 ﻿using System.Web;
 using System.Web.Optimization;
 
-namespace AnyHire
+namespace AnyHireAPI
 {
     public class BundleConfig
     {
@@ -9,7 +9,7 @@ namespace AnyHire
         public static void RegisterBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
-                        "https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"));
+                        "~/Scripts/jquery-{version}.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
@@ -20,13 +20,12 @@ namespace AnyHire
                         "~/Scripts/modernizr-*"));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-                      "https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js",
-                      "~/Scripts/respond.min.js"));
+                      "~/Scripts/bootstrap.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.min.css",
-                      "~/Content/datatables.css",
-                      "~/Content/bootstrap-tagsinput.css"));
+                      "~/Content/bootstrap.css",
+                      "~/Content/site.css",
+                      "~/Content/bootstrap-responsive.css"));
         }
     }
 }
